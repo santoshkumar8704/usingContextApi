@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-
-import Header from './components/Header.jsx';
-import Shop from './components/Shop.jsx';
-import { DUMMY_PRODUCTS } from './dummy-products.js';
-import Product from '../src/components/Product.jsx';
-import { ShopContext } from './store/ShopContext.jsx';
+import Header from "./components/Header.jsx";
+import Shop from "./components/Shop.jsx";
+import { DUMMY_PRODUCTS } from "./dummy-products.js";
+import Product from "../src/components/Product.jsx";
+import { ShopContext } from "./store/ShopContext.jsx";
 
 function App() {
   const [shoppingCart, setShoppingCart] = useState({
@@ -67,15 +66,19 @@ function App() {
       };
     });
   }
+  const ctxvalue = {
+    items: shoppingCart.items,
+    addItemsToCart: handleAddItemToCart,
+  };
 
   return (
-    <ShopContext.Provider value={{items : []}}>
+    <ShopContext.Provider value={ctxvalue}>
       <Header
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
       />
       <Shop>
-      {DUMMY_PRODUCTS.map((product) => (
+        {DUMMY_PRODUCTS.map((product) => (
           <li key={product.id}>
             <Product {...product} onAddToCart={handleAddItemToCart} />
           </li>
